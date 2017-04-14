@@ -15,6 +15,7 @@ import java.io.ObjectOutputStream;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -113,8 +114,43 @@ public class WelcomePage extends JFrame implements ActionListener {
 			}
 		}
                 if(source == login){
+                    Login login;
+                    String userName = null, password = null;
+                    login= new Login();
+		    JOptionPane playerLogin = login.login;
+                    userName = login.getUserNmae();
+                    password = login.getPassword();
+                    currentUser = new User(userName, password);
+                   
+                    //get infomation fromdatabase
+                    String checkName = "abc";
+                    String checkPass = "abc";
+                    boolean isSaving = false;
+                   
+                    if(userName==checkName && password== checkPass){
+                       if(isSaving){
+                           
+                       }else{
+                            this.setVisible(false);
+                            // create the game object
+                            final Game game = new Game(currentUser);
+                            // create the GUI for the game
+                            final KiwiCountUI gui = new KiwiCountUI(game);
+                            // make the GUI visible
+                            java.awt.EventQueue.invokeLater(new Runnable() {
+			@Override
+				public void run() {
+				gui.setVisible(true);
+				}
+			});
+                       }
+                     }else{
+                        JOptionPane wrongAccount= new JOptionPane();
+                        JLabel WrongMessage = new JLabel("Please enter the right username and password");
+                        
+                    }
                     
-                }
+	}
                     
 	}
 
