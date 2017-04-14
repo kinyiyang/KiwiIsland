@@ -1,8 +1,13 @@
 package nz.ac.aut.ense701.gameModel;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
@@ -726,7 +731,6 @@ public class Game {
 		player = new Player(pos, currentUser.getUserName(), playerMaxStamina, playerMaxBackpackWeight, playerMaxBackpackSize);
 		island.updatePlayerPosition(player);
 	}
-
 	/**
 	 * Creates occupants listed in the file and adds them to the island.
 	 * 
@@ -797,29 +801,56 @@ public class Game {
 			if (occType.equals("T")) {
 				double weight = input.nextDouble();
 				double size = input.nextDouble();
-				occupant = new Tool(occPos, occName, occDesc, weight, size);
+				occupant = new Tool(occPos, occType, occName, occDesc, weight, size);
 			} else if (occType.equals("E")) {
 				double weight = input.nextDouble();
 				double size = input.nextDouble();
 				double energy = input.nextDouble();
-				occupant = new Food(occPos, occName, occDesc, weight, size, energy);
+				occupant = new Food(occPos, occType, occName, occDesc, weight, size, energy);
 			} else if (occType.equals("H")) {
 				double impact = input.nextDouble();
-				occupant = new Hazard(occPos, occName, occDesc, impact);
+				occupant = new Hazard(occPos, occType, occName, occDesc, impact);
 			} else if (occType.equals("K")) {
-				occupant = new Kiwi(occPos, occName, occDesc);
+				occupant = new Kiwi(occPos, occType, occName, occDesc);
 				totalKiwis++;
 			} else if (occType.equals("P")) {
-				occupant = new Predator(occPos, occName, occDesc);
+				occupant = new Predator(occPos, occType, occName, occDesc);
 				totalPredators++;
 			} else if (occType.equals("F")) {
-				occupant = new Fauna(occPos, occName, occDesc);
+				occupant = new Fauna(occPos, occType, occName, occDesc);
 			}
 			if (occupant != null)
 				island.addOccupant(occPos, occupant);
 		}
 	}
+ public void save() {
+            try { 
+FileWriter fw = new FileWriter("./util/players.txt"); 
+BufferedWriter buffw=new BufferedWriter(fw);
+PrintWriter pw=new PrintWriter(buffw);
+                 
+               pw.close();
+	       buffw.close();
+	       fw.close(); 
+    }
+            catch(Exception e) { 
+} 
 
+    }
+    public void load(){
+           try {
+              BufferedReader input;
+              FileReader reader=null;
+              reader = new FileReader("./util/player.txt");
+              input=new BufferedReader(reader);
+              input.readLine();
+              
+              
+              reader.close();
+              input.close();
+            }catch (FileNotFoundException ex) {
+            }catch (IOException ex) {}
+    }
 	private Island island;
 	private User currentUser;
 	private Player player;
