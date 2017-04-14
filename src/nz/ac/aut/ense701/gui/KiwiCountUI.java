@@ -1,7 +1,10 @@
 package nz.ac.aut.ense701.gui;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+
 import javax.swing.JOptionPane;
 import nz.ac.aut.ense701.gameModel.Game;
 import nz.ac.aut.ense701.gameModel.GameEventListener;
@@ -179,7 +182,7 @@ public class KiwiCountUI
         pnlIsland.setLayout(pnlIslandLayout);
         pnlIslandLayout.setHorizontalGroup(
             pnlIslandLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 367, Short.MAX_VALUE)
+            .addGap(0, 540, Short.MAX_VALUE)
         );
         pnlIslandLayout.setVerticalGroup(
             pnlIslandLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +210,7 @@ public class KiwiCountUI
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         pnlPlayerData.add(txtPlayerName, gridBagConstraints);
 
         lblPlayerStamina.setText("Stamina:");
@@ -540,8 +543,15 @@ public class KiwiCountUI
 
         pnlContent.add(pnlControls, java.awt.BorderLayout.EAST);
 
+        
+        //To display window in middle of the screen
         getContentPane().add(pnlContent, java.awt.BorderLayout.CENTER);
-
+        Toolkit tk = Toolkit.getDefaultToolkit();
+		Dimension screenDimension = tk.getScreenSize();
+		Dimension frameDimension = this.getSize();
+		setLocation((screenDimension.width - frameDimension.width) / 4,
+				(screenDimension.height - frameDimension.height) / 6);
+		setTitle("KiwiIland Management System");
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
