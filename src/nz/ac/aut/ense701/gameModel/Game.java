@@ -1,8 +1,13 @@
 package nz.ac.aut.ense701.gameModel;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
@@ -726,7 +731,6 @@ public class Game {
 		player = new Player(pos, currentUser.getUserName(), playerMaxStamina, playerMaxBackpackWeight, playerMaxBackpackSize);
 		island.updatePlayerPosition(player);
 	}
-
 	/**
 	 * Creates occupants listed in the file and adds them to the island.
 	 * 
@@ -819,7 +823,34 @@ public class Game {
 				island.addOccupant(occPos, occupant);
 		}
 	}
+ public void save() {
+            try { 
+FileWriter fw = new FileWriter("./util/players.txt"); 
+BufferedWriter buffw=new BufferedWriter(fw);
+PrintWriter pw=new PrintWriter(buffw);
+                 
+               pw.close();
+	       buffw.close();
+	       fw.close(); 
+    }
+            catch(Exception e) { 
+} 
 
+    }
+    public void load(){
+           try {
+              BufferedReader input;
+              FileReader reader=null;
+              reader = new FileReader("./util/player.txt");
+              input=new BufferedReader(reader);
+              input.readLine();
+              
+              
+              reader.close();
+              input.close();
+            }catch (FileNotFoundException ex) {
+            }catch (IOException ex) {}
+    }
 	private Island island;
 	private User currentUser;
 	private Player player;
