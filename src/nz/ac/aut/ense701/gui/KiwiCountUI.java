@@ -661,42 +661,7 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 		}
 	}
       
-        public void addPanelTime(JPanel panelComponent) {
-        JPanel panelTime = new JPanel();
-        panelTime.setBorder(new TitledBorder("时间"));
-        panelTime.setLayout(new GridLayout(2, 1));
-
-        final JLabel lbSysTime = new JLabel();
-        final JLabel lbUserTime = new JLabel();
-
-        panelTime.add(lbSysTime, BorderLayout.NORTH);
-        panelTime.add(lbUserTime, BorderLayout.SOUTH);
-
-             // 设置系统时间定时器
-            Timer sysTimeAction = new Timer(500, new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                long timeMillis = System.currentTimeMillis();
-                SimpleDateFormat df = new SimpleDateFormat(
-                        "yyyy-MM-dd HH:mm:ss");
-                lbSysTime.setText("    系统时间：  " + df.format(timeMillis));
-            }
-        });
-                sysTimeAction.start();
-            Timer userTimeAction = new Timer(1000, new ActionListener() {
-                
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    long usedTime = 0  ;
-                    lbUserTime.setText("    您已用时：  " + (++usedTime)+ " sec.");
-                }
-            });
-        userTimeAction.start();
-
-        panelComponent.add(panelTime, BorderLayout.EAST);
-
-    }
+  
         
         public long getUsedTime(){
             return usedTime;
