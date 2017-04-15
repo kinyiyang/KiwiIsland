@@ -1,11 +1,15 @@
 package nz.ac.aut.ense701.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import javax.swing.Timer;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -13,6 +17,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
+import javax.swing.Timer;
+import javax.swing.border.TitledBorder;
+import java.sql.Time;
 
 import nz.ac.aut.ense701.gameModel.Game;
 import nz.ac.aut.ense701.gameModel.GameEventListener;
@@ -326,11 +333,19 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPlayerData.add(LTimer, gridBagConstraints);
 
-        jLabel1.setText("00:00:00");
+        jLabel1.setText("0.00.00");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         pnlPlayerData.add(jLabel1, gridBagConstraints);
+        userTimeAction = new Timer(1000, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jLabel1.setText(++usedTime+"  sec");
+            }
+        });
+        userTimeAction.start();
 
         pnlPlayer.add(pnlPlayerData, java.awt.BorderLayout.WEST);
 
@@ -645,7 +660,56 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 			}
 		}
 	}
+      
+        public void addPanelTime(JPanel panelComponent) {
+        JPanel panelTime = new JPanel();
+        panelTime.setBorder(new TitledBorder("时间"));
+        panelTime.setLayout(new GridLayout(2, 1));
 
+        final JLabel lbSysTime = new JLabel();
+        final JLabel lbUserTime = new JLabel();
+
+        panelTime.add(lbSysTime, BorderLayout.NORTH);
+        panelTime.add(lbUserTime, BorderLayout.SOUTH);
+
+             // 设置系统时间定时器
+            Timer sysTimeAction = new Timer(500, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                long timeMillis = System.currentTimeMillis();
+                SimpleDateFormat df = new SimpleDateFormat(
+                        "yyyy-MM-dd HH:mm:ss");
+                lbSysTime.setText("    系统时间：  " + df.format(timeMillis));
+            }
+        });
+                sysTimeAction.start();
+            Timer userTimeAction = new Timer(1000, new ActionListener() {
+                
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    long usedTime = 0  ;
+                    lbUserTime.setText("    您已用时：  " + (++usedTime)+ " sec.");
+                }
+            });
+        userTimeAction.start();
+
+        panelComponent.add(panelTime, BorderLayout.EAST);
+
+    }
+        
+        public long getUsedTime(){
+            return usedTime;
+        }
+        
+   
+    public KiwiCountUI(long time){
+            KiwiCountUI.usedTime = time;
+        }
+        
+        public static Timer userTimeAction;
+        public static long usedTime = 0; 
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LTimer;
     private javax.swing.JButton btnCollect;
