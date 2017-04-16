@@ -10,7 +10,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -22,7 +21,7 @@ import javax.swing.JTextField;
  */
 public class CreateNew {
 	public JOptionPane creat;
-	private JLabel userNameL, passwordL, warning;
+	private JLabel userNameL, passwordL;
 	private JTextField userNameIn;
 	private JPasswordField passwordIn;
 
@@ -33,32 +32,34 @@ public class CreateNew {
 		creat = new JOptionPane();
 		userNameL = new JLabel("UserName:");
 		passwordL = new JLabel("Password:");
-		warning = new JLabel("User Name And Password Must Be Longer Than 6 Characters!");
-		userNameIn = new JTextField(12);
+		userNameIn = new JTextField(20);
 		passwordIn = new JPasswordField(12);
-
+		
 		creat.setMessage(null);
 		creat.setLayout(new FlowLayout());
-		creat.setPreferredSize(new Dimension(400, 150));
+		creat.setPreferredSize(new Dimension(300, 120));
 		creat.add(userNameL, 0);
 		creat.add(userNameIn, 1);
 		creat.add(passwordL, 2);
 		creat.add(passwordIn, 3);
-		creat.add(warning, 4);
+
 		JDialog localJDialog = creat.createDialog(creat, "Creat new player");
 		localJDialog.setVisible(true);
 
 	}
 
-	public String getUserNmae() {
+	
+	public String getUserNmae(){
 		return userNameIn.getText();
-
+		
 	}
-
-	public String getPassword() {
+	
+	public String getPassword(){
 		char[] pass = passwordIn.getPassword();
 		return new String(pass);
-
+		
 	}
+
+	
 
 }

@@ -7,16 +7,17 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Locale;
-import java.util.Scanner;
 
-public class SaveGame {
+public class SaveLoad {
 	Game game;
 	Island island;
 	Player player;
 
+	public SaveLoad() {
 
-	public SaveGame(Game game) {
+	}
+
+	public SaveLoad(Game game) {
 		this.game = game;
 		island = game.getIsland();
 		player = game.getPlayer();
@@ -75,19 +76,13 @@ public class SaveGame {
 				}
 				pw.println(",");
 			}
-			
-			//Check player stamina and position
-			pw.println(playerP);
-			pw.println(player.getStaminaLevel());
-			
-			pw.println(mapItems.size());
 			for (int i = 0; i < mapItems.size(); i++) {
 				pw.println(mapItems.get(i).toString());
 			}
 
 			//Check what item has owned
+			pw.println("@owned");
 			HashSet<Item> backpack = player.getBackpack();
-			pw.println(backpack.size());
 			Iterator<Item> it = backpack.iterator();
 			while (it.hasNext()) {
 				Item item = it.next();
@@ -101,7 +96,10 @@ public class SaveGame {
 				pw.println(string);
 			}
 			
-			
+			//Check player stamina and position
+			pw.println("@player");
+			pw.println(player.getStaminaLevel());
+			pw.println(playerP);
 
 
 			pw.close();
@@ -112,4 +110,9 @@ public class SaveGame {
 		}
 
 	}
+
+	public void load(String fileName) {
+
+	}
+
 }
